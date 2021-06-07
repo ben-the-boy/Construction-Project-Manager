@@ -1,3 +1,4 @@
 class Subcontractor < ApplicationRecord
-  belongs_to :project 
+  has_many :projects
+  has_many :users, through: :projects 
 end
