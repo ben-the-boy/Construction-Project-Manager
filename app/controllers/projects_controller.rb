@@ -19,9 +19,14 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @user = User.find(params[:user_id])
+    @project = Project.find(params[:id])
   end
 
   def update
+    @project = Project.find(params[:id])
+    @project.update(project_params)
+    redirect_to user_project_path(@project.user, @project)
   end
 
   def destroy
@@ -30,7 +35,8 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :category, :length, subcontractor_ids:[], client_attributes: [:name, :budget], subcontractors_attributes: [:name, :specialty])
+    params.require(:project).permit(:name, :category, :length, subcontractor_ids:[], client_attributes: [:name, :budget], subcontractors_attributes: [:name, :specialty],
+    materials_attributes: [:name, :price, :quantity])
   end
 
 end

@@ -1,0 +1,45 @@
+<h1>Update <%= @project.name %>:</h1>
+<%= form_for [@user, @project] do |f| %>
+  <%= f.label :name, "Project Name" %><br>
+  <%= f.text_field :name %><br>
+  <br>
+  Client Info:
+  <ul>
+  <%= f.fields_for :client, @project.client do |client_fields| %>
+    <li><%= client_fields.label :name, "Client Name" %><br>
+    <%= client_fields.text_field :name %></li>
+    <li><%= client_fields.label :budget %><br>
+    <%= client_fields.text_field :budget %></li>
+  <% end %>
+  </ul>
+  <%= f.label :category %><br>
+  <%= f.select(:category, ['Residential', 'Commercial']) %><br>
+  <br>
+  <%= f.label :length, "Weeks for Completion" %><br>
+  <%= f.text_field :length %><br>
+  <br>
+  <%= f.label :subcontractor_ids, "Choose Subcontractors" %><br>
+  <%= f.collection_check_boxes :subcontractor_ids, Subcontractor.all, :id, :name, include_blank: true %><br>
+  Add a New Subcontractor:
+  <ul>
+  <%= f.fields_for :subcontractors, @project.subcontractors.build do |subcontractors_fields| %>
+    <li><%= subcontractors_fields.label :name %><br>
+    <%= subcontractors_fields.text_field :name %></li>
+    <li><%= subcontractors_fields.label :specialty %><br>
+    <%= subcontractors_fields.text_field :specialty %></li>
+  <% end %>
+  </ul>
+  Update Materials:
+  <ul>
+  <%= f.fields_for :materials, @project.materials do |materials_fields| %>
+    <li><%= materials_fields.label :name %><br>
+    <%= materials_fields.text_field :name %><br>
+    <%= materials_fields.label :price, "Price Per Unit" %><br>
+    <%= materials_fields.text_field :price %><br>
+    <%= materials_fields.label :quantity %><br>
+    <%= materials_fields.text_field :quantity %></li>
+    <br>
+  <% end %>
+  </ul>
+  <%= f.submit %>
+<% end %>
