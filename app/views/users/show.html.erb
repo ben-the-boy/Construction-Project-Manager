@@ -1,0 +1,8 @@
+<h1>Welcome, <%= @user.username %>!</h1>
+Current Projects:
+<ul>
+  <% @user.projects.each do |p| %>
+    <li><%= p.name %>
+  <% end %>
+</ul>
+<%= link_to "Add a New Project", new_user_project_path(@user) %>

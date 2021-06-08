@@ -1,0 +1,19 @@
+<h1>Create a New Project:</h1>
+<%= form_for [@user, @project] do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :name %><br>
+  <%= f.label :category %><br>
+  <%= f.text_field :category %><br>
+  <%= f.label :length, "Weeks for Completion" %><br>
+  <%= f.text_field :length %><br>
+  <%= f.label :subcontractor_id, "Choose a Subcontractor" %><br>
+  <%= f.collection_select :subcontractor_id, Subcontractor.all, :id, :name, include_blank: true %><br>
+  <%= f.label :subcontractor, "Or Add a New Subcontractor" %><br>
+  <%= f.fields_for :subcontractor, @project.build_subcontractor do |subcontractor_fields| %>
+    <%= subcontractor_fields.label :name %><br>
+    <%= subcontractor_fields.text_field :name %><br>
+    <%= subcontractor_fields.label :specialty %><br>
+    <%= subcontractor_fields.text_field :specialty %><br>
+  <% end %>
+  <%= f.submit %>
+<% end %>

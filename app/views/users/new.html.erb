@@ -1,6 +1,6 @@
 <% if @user.errors.any? %>
   <% @user.errors.full_messages.each do |message| %>
-  <p><%= message %></p>
+  <p style="color:#ff0000; font-weight:bold"><%= message %></p>
   <% end %>
 <% end %>
 <br>
