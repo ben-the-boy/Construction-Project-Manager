@@ -1,19 +1,33 @@
 <h1>Create a New Project:</h1>
 <%= form_for [@user, @project] do |f| %>
-  <%= f.label :name %><br>
+  <%= f.label :name, "Project Name" %><br>
   <%= f.text_field :name %><br>
+  <br>
+  Client Info:
+  <ul>
+  <%= f.fields_for :client, @project.build_client do |client_fields| %>
+    <li><%= client_fields.label :name, "Client Name" %><br>
+    <%= client_fields.text_field :name %></li>
+    <li><%= client_fields.label :budget %><br>
+    <%= client_fields.text_field :budget %></li>
+  <% end %>
+  </ul>
   <%= f.label :category %><br>
-  <%= f.text_field :category %><br>
+  <%= f.select(:category, ['Residential', 'Commercial']) %><br>
+  <br>
   <%= f.label :length, "Weeks for Completion" %><br>
   <%= f.text_field :length %><br>
-  <%= f.label :subcontractor_id, "Choose a Subcontractor" %><br>
-  <%= f.collection_select :subcontractor_id, Subcontractor.all, :id, :name, include_blank: true %><br>
-  <%= f.label :subcontractor, "Or Add a New Subcontractor" %><br>
-  <%= f.fields_for :subcontractor, @project.build_subcontractor do |subcontractor_fields| %>
-    <%= subcontractor_fields.label :name %><br>
-    <%= subcontractor_fields.text_field :name %><br>
-    <%= subcontractor_fields.label :specialty %><br>
-    <%= subcontractor_fields.text_field :specialty %><br>
+  <br>
+  <%= f.label :subcontractor_ids, "Choose Subcontractors" %><br>
+  <%= f.collection_check_boxes :subcontractor_ids, Subcontractor.all, :id, :name, include_blank: true %><br>
+  Add a New Subcontractor:
+  <ul>
+  <%= f.fields_for :subcontractors, @project.subcontractors.build do |subcontractors_fields| %>
+    <li><%= subcontractors_fields.label :name %><br>
+    <%= subcontractors_fields.text_field :name %></li>
+    <li><%= subcontractors_fields.label :specialty %><br>
+    <%= subcontractors_fields.text_field :specialty %></li>
   <% end %>
+  </ul>
   <%= f.submit %>
 <% end %>

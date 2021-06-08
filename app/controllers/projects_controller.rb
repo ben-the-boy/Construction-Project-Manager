@@ -10,11 +10,12 @@ class ProjectsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    project = @user.projects.create(project_params)
+    @user.projects.create(project_params)
     redirect_to @user
   end
 
   def show
+    @project = Project.find(params[:id])
   end
 
   def edit
@@ -29,7 +30,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :category, :length, :subcontractor_id)
+    params.require(:project).permit(:name, :category, :length, subcontractor_ids:[], client_attributes: [:name, :budget], subcontractors_attributes: [:name, :specialty])
   end
 
 end

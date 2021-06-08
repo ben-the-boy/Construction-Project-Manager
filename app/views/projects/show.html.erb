@@ -1,0 +1,15 @@
+<h1><%= @project.name %></h1>
+Type: <%= @project.category %><br>
+Estimated Duration: <%= @project.length %> weeks<br>
+Subcontractors:
+<ul>
+<% @project.subcontractors.each do |s| %>
+  <li><%= "#{s.name} - #{s.specialty}" %></li>
+<% end %>
+</ul>
+Client Info:
+<ul>
+  <li>Name: <%= @project.client.name %>
+  <li>Budget: $<%= @project.client.budget %>
+</ul>
+<h3>Required Materials:</h3>

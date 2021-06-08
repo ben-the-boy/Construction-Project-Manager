@@ -2,7 +2,7 @@
 Current Projects:
 <ul>
   <% @user.projects.each do |p| %>
-    <li><%= p.name %>
+    <li><%= link_to p.name, user_project_path(@user, p) %>
   <% end %>
 </ul>
 <%= link_to "Add a New Project", new_user_project_path(@user) %>
