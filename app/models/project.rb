@@ -13,7 +13,9 @@ class Project < ApplicationRecord
         material = self.materials.find_by(name: material_attribute[:name])
         material.update(material_attribute)
       else
-        material = self.materials.create(material_attribute)
+        if !material_attribute.values.include?("")
+          material = self.materials.create(material_attribute)
+        end
       end
     end
   end

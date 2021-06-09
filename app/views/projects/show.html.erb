@@ -35,4 +35,5 @@ Add New Material:
 <%= f.submit "Add to List" %>
 <% end %>
 <br>
-<%= link_to "Edit Project Details", edit_user_project_path(@project.user, @project) %>
+<%= link_to "Edit Project Details", edit_user_project_path(@project.user, @project) %><br>
+<%= link_to "Delete Project", @project, method: :delete %>

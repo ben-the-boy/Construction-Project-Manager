@@ -38,6 +38,18 @@
     <%= materials_fields.text_field :price %><br>
     <%= materials_fields.label :quantity %><br>
     <%= materials_fields.text_field :quantity %></li>
+    <%= link_to "Remove", materials_fields.object, method: :delete %>
+    <br>
+  <% end %>
+  </ul>
+  <ul>
+  <%= f.fields_for :materials, @project.materials.build do |materials_fields| %>
+    <li><%= materials_fields.label :name %><br>
+    <%= materials_fields.text_field :name %><br>
+    <%= materials_fields.label :price, "Price Per Unit" %><br>
+    <%= materials_fields.text_field :price %><br>
+    <%= materials_fields.label :quantity %><br>
+    <%= materials_fields.text_field :quantity %></li>
     <br>
   <% end %>
   </ul>
