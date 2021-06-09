@@ -10,8 +10,8 @@ class ProjectsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @user.projects.create(project_params)
-    redirect_to @user
+    @project = @user.projects.create(project_params)
+    redirect_to user_project_path(@user, @project)
   end
 
   def show

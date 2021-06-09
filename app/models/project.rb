@@ -20,4 +20,21 @@ class Project < ApplicationRecord
     end
   end
 
+  def subcontractors_attributes=(subcontractor_attributes)
+    subcontractor_attributes.values.each do |subcontractor_attribute|
+      if Subcontractor.find_by(name: subcontractor_attribute[:name])
+        subcontractor = Subcontractor.find_by(name: subcontractor_attribute[:name])
+        if subcontractor.specialty != subcontractor_attribute[:specialty]
+          subcontractor = Subcontractor.create(subcontractor_attribute)
+          self.subcontractors << subcontractor
+        else
+          self.subcontractors << subcontractor
+        end
+      else
+        subcontractor = Subcontractor.create(subcontractor_attribute)
+        self.subcontractors << subcontractor 
+      end
+    end
+  end
+
 end

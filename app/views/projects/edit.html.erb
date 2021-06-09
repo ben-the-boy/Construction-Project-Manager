@@ -19,7 +19,7 @@
   <%= f.text_field :length %><br>
   <br>
   <%= f.label :subcontractor_ids, "Choose Subcontractors" %><br>
-  <%= f.collection_check_boxes :subcontractor_ids, Subcontractor.all, :id, :name, include_blank: true %><br>
+  <%= f.collection_check_boxes :subcontractor_ids, Subcontractor.all, :id, :name_with_specialty, include_blank: true %><br>
   Add a New Subcontractor:
   <ul>
   <%= f.fields_for :subcontractors, @project.subcontractors.build do |subcontractors_fields| %>
@@ -29,7 +29,7 @@
     <%= subcontractors_fields.text_field :specialty %></li>
   <% end %>
   </ul>
-  Update Materials:
+  Edit Materials:
   <ul>
   <%= f.fields_for :materials, @project.materials do |materials_fields| %>
     <li><%= materials_fields.label :name %><br>
@@ -39,17 +39,6 @@
     <%= materials_fields.label :quantity %><br>
     <%= materials_fields.text_field :quantity %></li>
     <%= link_to "Remove", materials_fields.object, method: :delete %>
-    <br>
-  <% end %>
-  </ul>
-  <ul>
-  <%= f.fields_for :materials, @project.materials.build do |materials_fields| %>
-    <li><%= materials_fields.label :name %><br>
-    <%= materials_fields.text_field :name %><br>
-    <%= materials_fields.label :price, "Price Per Unit" %><br>
-    <%= materials_fields.text_field :price %><br>
-    <%= materials_fields.label :quantity %><br>
-    <%= materials_fields.text_field :quantity %></li>
     <br>
   <% end %>
   </ul>
