@@ -1,3 +1,8 @@
+<% if @project.errors.any? %>
+  <% @project.errors.full_messages.each do |message| %>
+  <p style="color:#ff0000; font-weight:bold"><%= message %></p>
+  <% end %>
+<% end %>
 <h1>Create a New Project:</h1>
 <%= form_for [@user, @project] do |f| %>
   <%= f.label :name, "Project Name" %><br>
@@ -13,7 +18,7 @@
   <% end %>
   </ul>
   <%= f.label :category %><br>
-  <%= f.select(:category, ['Residential', 'Commercial']) %><br>
+  <%= f.select(:category, ['Residential', 'Commercial'], include_blank: true) %><br>
   <br>
   <%= f.label :length, "Weeks for Completion" %><br>
   <%= f.text_field :length %><br>

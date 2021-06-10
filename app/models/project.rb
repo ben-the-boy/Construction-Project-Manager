@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :client
   accepts_nested_attributes_for :subcontractors, reject_if: :all_blank
   accepts_nested_attributes_for :materials, reject_if: :all_blank
+  validates_presence_of :name
 
   def materials_attributes=(material_attributes)
     material_attributes.values.each do |material_attribute|
@@ -34,7 +35,7 @@ class Project < ApplicationRecord
         else
           subcontractor = Subcontractor.create(subcontractor_attribute)
           self.subcontractors << subcontractor
-        end 
+        end
       end
     end
   end

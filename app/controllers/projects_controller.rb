@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :require_login
   before_action :user_match
+  skip_before_action :user_match, only: [:destroy, :update]
 
   def index
   end
@@ -12,8 +13,12 @@ class ProjectsController < ApplicationController
 
   def create
     @user = User.find(params[:user_id])
-    @project = @user.projects.create(project_params)
-    redirect_to user_project_path(@user, @project)
+    @project = @user.projects.build(project_params)
+    if @project.save
+      redirect_to user_project_path(@user, @project)
+    else
+      render :new
+    end
   end
 
   def show
@@ -27,8 +32,11 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.update(project_params)
-    redirect_to user_project_path(@project.user, @project)
+    if @project.update(project_params)
+      redirect_to user_project_path(@project.user, @project)
+    else
+      render :edit
+    end
   end
 
   def destroy
