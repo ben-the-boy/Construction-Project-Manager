@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :require_login
+  before_action :user_match
 
   def index
   end
