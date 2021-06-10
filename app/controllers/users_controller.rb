@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :require_login
-  before_action :user_match
+  before_action :require_login, only: [:show]
+  before_action :user_match, only: [:show]
 
   def new
     @user = User.new
@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to @user
     else
       render :new
