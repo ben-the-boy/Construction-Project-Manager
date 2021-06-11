@@ -1,0 +1,9 @@
+<ul>
+<% @clients.each do |c| %>
+  <% c.projects.each do |p| %>
+    <% if current_user.projects.include?(p) %>
+      <li><%= "#{c.name} - #{p.name} - #{c.email}" %>
+    <% end %>
+  <% end %>
+<% end %>
+</ul>
