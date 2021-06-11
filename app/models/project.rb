@@ -40,21 +40,20 @@ class Project < ApplicationRecord
     end
   end
 
-  def clients_attributes=(client_attributes)
-    client_attributes.values.each do |client_attribute|
-      if Client.find_by(name: client_attribute[:name])
-        client = Client.find_by(name: client_attribute[:name])
-        if client.email != client_attribute[:email]
-          client = Client.create(client_attribute)
-          self.client = client
-        else
-          self.client = client
-        end
-      else
-        client = Subcontractor.create(client_attribute)
+  def client_attributes=(client_attributes)
+    if Client.find_by(name: client_attributes[:name])
+      client = Client.find_by(name: client_attributes[:name])
+      if client.email != client_attributes[:email]
+        client = Client.create(client_attributes)
         self.client = client
-      end 
+      else
+        self.client = client
+      end
+    else
+      client = Client.create(client_attributes)
+      self.client = client
     end
   end
+
 
 end
