@@ -3,7 +3,7 @@ class Project < ApplicationRecord
   belongs_to :client
   has_many :materials
   has_many :subcontractors
-  accepts_nested_attributes_for :client
+  accepts_nested_attributes_for :client, reject_if: :all_blank
   accepts_nested_attributes_for :subcontractors, reject_if: :all_blank
   accepts_nested_attributes_for :materials, reject_if: :all_blank
   validates_presence_of :name
@@ -37,6 +37,23 @@ class Project < ApplicationRecord
           self.subcontractors << subcontractor
         end
       end
+    end
+  end
+
+  def clients_attributes=(client_attributes)
+    client_attributes.values.each do |client_attribute|
+      if Client.find_by(name: client_attribute[:name])
+        client = Client.find_by(name: client_attribute[:name])
+        if client.email != client_attribute[:email]
+          client = Client.create(client_attribute)
+          self.client = client
+        else
+          self.client = client
+        end
+      else
+        client = Subcontractor.create(client_attribute)
+        self.client = client
+      end 
     end
   end
 

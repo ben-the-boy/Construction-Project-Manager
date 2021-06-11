@@ -13,8 +13,8 @@
   <%= f.fields_for :client, @project.build_client do |client_fields| %>
     <li><%= client_fields.label :name, "Client Name" %><br>
     <%= client_fields.text_field :name %></li>
-    <li><%= client_fields.label :budget %><br>
-    <%= client_fields.text_field :budget %></li>
+    <li><%= client_fields.label :email %><br>
+    <%= client_fields.text_field :email %></li>
   <% end %>
   </ul>
   <%= f.label :category %><br>

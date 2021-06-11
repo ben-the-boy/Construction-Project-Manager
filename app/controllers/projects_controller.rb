@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:name, :category, :length, subcontractor_ids:[], client_attributes: [:name, :budget], subcontractors_attributes: [:name, :specialty],
+    params.require(:project).permit(:name, :category, :length, subcontractor_ids:[], client_attributes: [:name, :email], subcontractors_attributes: [:name, :specialty],
     materials_attributes: [:name, :price, :quantity])
   end
 
