@@ -6,7 +6,7 @@ class Project < ApplicationRecord
   accepts_nested_attributes_for :client, reject_if: :all_blank
   accepts_nested_attributes_for :subcontractors, reject_if: :all_blank
   accepts_nested_attributes_for :materials, reject_if: :all_blank
-  validates_presence_of :name
+  validates_presence_of :name, :length
   scope :longest_project, -> { where("length = ?", self.maximum(:length)) }
 
   def materials_attributes=(material_attributes)

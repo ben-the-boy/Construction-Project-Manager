@@ -1,0 +1,39 @@
+<h1><%= @project.name %></h1>
+Type: <%= @project.category %><br>
+Estimated Duration: <%= @project.length %> weeks<br>
+Subcontractors:
+<ul>
+<% @project.subcontractors.each do |s| %>
+  <li><%= "#{s.name} - #{s.specialty}" %></li>
+<% end %>
+</ul>
+Client Info:
+<ul>
+  <li>Name: <%= @project.client.name %>
+  <li>Email: <%= @project.client.email %>
+</ul>
+<h3>Required Materials:</h3>
+<ul>
+<% @project.materials.each do |m| %>
+  <li><%= m.name %><br>
+    Price Per Unit: $<%= m.price %><br>
+    Quantity: <%= m.quantity %></li>
+<% end %>
+</ul>
+Add New Material:
+<%= form_for @project do |f| %>
+<ul>
+<%= f.fields_for :materials, @project.materials.build do |materials_fields| %>
+  <li><%= materials_fields.label :name %><br>
+  <%= materials_fields.text_field :name %></li>
+  <li><%= materials_fields.label :price, "Price Per Unit" %><br>
+  <%= materials_fields.text_field :price %></li>
+  <li><%= materials_fields.label :quantity %><br>
+  <%= materials_fields.text_field :quantity %></li>
+<% end %>
+</ul>
+<%= f.submit "Add to List" %>
+<% end %>
+<br>
+<%= link_to "Edit Project Details", edit_user_project_path(@project.user, @project) %><br>
+<%= link_to "Delete Project", @project, method: :delete %>

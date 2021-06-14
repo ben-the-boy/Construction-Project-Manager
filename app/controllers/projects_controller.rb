@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :require_login
   before_action :user_match
-  skip_before_action :user_match, only: [:destroy, :update]
+  skip_before_action :user_match, only: [:destroy, :update, :longest_project]
 
   def index
   end
@@ -44,6 +44,10 @@ class ProjectsController < ApplicationController
     @user = @project.user
     @project.destroy
     redirect_to user_path(@user)
+  end
+
+  def longest_project
+    @project = current_user.projects.longest_project.first
   end
 
   private
