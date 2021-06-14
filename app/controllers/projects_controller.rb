@@ -47,7 +47,11 @@ class ProjectsController < ApplicationController
   end
 
   def longest_project
-    @project = current_user.projects.longest_project.first
+    if !current_user.projects.empty?
+      @project = current_user.projects.longest_project.first
+    else
+      redirect_to current_user
+    end 
   end
 
   private
