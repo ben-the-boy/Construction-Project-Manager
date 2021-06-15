@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  resources :clients
-  resources :subcontractors
-  resources :materials
+  resources :clients, only: [:index]
+  resources :materials, only: [:destroy]
   resources :users do
     resources :projects
     get '/longest_project', to: 'projects#longest_project'
