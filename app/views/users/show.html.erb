@@ -5,6 +5,7 @@ Current Projects:
     <li><%= link_to p.name, user_project_path(@user, p) %>
   <% end %>
 </ul>
+<%= link_to "View Longest Project", user_longest_project_path(@user) %><br>
 <%= link_to "Add a New Project", new_user_project_path(@user) %><br>
 <% if !@user.clients.empty? %>
   <%= link_to "View Client List", clients_path %>
