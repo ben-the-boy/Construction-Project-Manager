@@ -49,7 +49,7 @@ class ProjectsController < ApplicationController
   def longest_project
     if !current_user.projects.empty?
       @project = current_user.projects.longest_project.first
-      redirect_to user_project_path(current_user, @project)
+      render :show
     else
       redirect_to current_user
     end
